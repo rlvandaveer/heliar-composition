@@ -7,18 +7,18 @@ using Heliar.Composition.Core;
 namespace Heliar.Composition.Web
 {
 	/// <summary>
-	/// Class that bootstraps all of the dependency resolvers for the current application by discovering all of the <see cref="IDependencyResolverConfigurator"/>s
+	/// Class that bootstraps all of the dependency resolvers for the current application by discovering all of the <see cref="IDependencyResolutionConfigurator"/>s
 	/// and executing them.
 	/// </summary>
-	public class DependencyResolverBootstrapper : BootstrapperBehavior, IDependencyResolverBootstrapper
+	public class DependencyResolutionBootstrapper : BootstrapperBehavior, IDependencyResolutionBootstrapper
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="DependencyResolverBootstrapper"/> class.
+		/// Initializes a new instance of the <see cref="DependencyResolutionBootstrapper"/> class.
 		/// </summary>
-		public DependencyResolverBootstrapper()
+		public DependencyResolutionBootstrapper()
 		{
 			this.AssemblyNamingConvention = "Heliar*.dll";
-			this.Conventions.ForTypesDerivedFrom<IDependencyResolverConfigurator>()
+			this.Conventions.ForTypesDerivedFrom<IDependencyResolutionConfigurator>()
 				.SetCreationPolicy(CreationPolicy.Shared)
 				.ExportInterfaces()
 				.Export();
@@ -33,7 +33,7 @@ namespace Heliar.Composition.Web
 
 			using (var container = new CompositionContainer(this.Catalog, CompositionOptions.DisableSilentRejection))
 			{
-				var configurators = container.GetExportedValues<IDependencyResolverConfigurator>();
+				var configurators = container.GetExportedValues<IDependencyResolutionConfigurator>();
 
 				foreach (var configurator in configurators)
 				{

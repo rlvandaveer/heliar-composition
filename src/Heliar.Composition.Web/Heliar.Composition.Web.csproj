@@ -50,12 +50,12 @@
     <Compile Include="ApplicationSharedAttribute.cs" />
     <Compile Include="CompositionScopeDisposer.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="DependencyResolverBootstrapper.cs" />
+    <Compile Include="DependencyResolutionBootstrapper.cs" />
     <Compile Include="Extensions\HttpContext.cs" />
     <Compile Include="Extensions\RegistrationBuilder.cs" />
     <Compile Include="HeliarCompositionProvider.cs" />
-    <Compile Include="IDependencyResolverBootstrapper.cs" />
-    <Compile Include="IDependencyResolverConfigurator.cs" />
+    <Compile Include="IDependencyResolutionBootstrapper.cs" />
+    <Compile Include="IDependencyResolutionConfigurator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebPartsCatalog.cs" />
   </ItemGroup>

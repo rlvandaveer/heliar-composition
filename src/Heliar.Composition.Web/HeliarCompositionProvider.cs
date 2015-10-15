@@ -10,17 +10,12 @@
 //     Copyright (c)2013 - 2015 R. L. Vandaveer
 // </copyright>
 // ***********************************************************************
-using Heliar.Composition.Core;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
-using System.ComponentModel.Composition.Registration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
+
+using Heliar.Composition.Core;
 
 namespace Heliar.Composition.Web
 {
@@ -81,13 +76,10 @@ namespace Heliar.Composition.Web
 		/// </summary>
 		/// <param name="bootstrapper">A catalog bootstrapper.</param>
 		/// <param name="resolverBootstrapper">The dependency resolver bootstrapper.</param>
-		public HeliarCompositionProvider(ICatalogBootstrapper bootstrapper, IDependencyResolverBootstrapper resolverBootstrapper)
+		public HeliarCompositionProvider(ICatalogBootstrapper bootstrapper, IDependencyResolutionBootstrapper resolverBootstrapper)
 		{
-			if (bootstrapper == null)
-				bootstrapper = new CatalogBootstrapper();
-
-			if (resolverBootstrapper == null)
-				resolverBootstrapper = new DependencyResolverBootstrapper();
+			if (bootstrapper == null) throw new ArgumentNullException(nameof(bootstrapper));
+			if (resolverBootstrapper == null) throw new ArgumentNullException(nameof(resolverBootstrapper));
 
 			var catalog = bootstrapper.Bootstrap();
 			var globals = catalog.Filter(cpd => cpd.ContainsPartMetadata(Constants.ApplicationShared, true)).IncludeDependencies();
@@ -100,6 +92,6 @@ namespace Heliar.Composition.Web
 		/// <summary>
 		/// Initializes a new instance of the <see cref="HeliarCompositionProvider" /> class.
 		/// </summary>
-		public HeliarCompositionProvider() : this(null, null) { }
+		public HeliarCompositionProvider() : this(new CatalogBootstrapper(), new DependencyResolutionBootstrapper()) { }
 	}
 }

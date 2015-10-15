@@ -1,6 +1,6 @@
 ﻿namespace Heliar.Composition.Web
 {
-	public interface IDependencyResolverBootstrapper
+	public interface IDependencyResolutionBootstrapper
 	{
 		void Bootstrap();
 	}

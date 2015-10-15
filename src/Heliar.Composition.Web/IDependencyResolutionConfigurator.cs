@@ -1,6 +1,6 @@
 ﻿namespace Heliar.Composition.Web
 {
-	public interface IDependencyResolverConfigurator
+	public interface IDependencyResolutionConfigurator
 	{
 		void Configure();
 	}
