@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heliar.Composition.Core", "Heliar.Composition.Core\Heliar.Composition.Core.csproj", "{33184A48-3BE1-4717-BDB1-A1A983DA73E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heliar.Composition.Web", "Heliar.Composition.Web\Heliar.Composition.Web.csproj", "{39A5AD59-0A65-4032-9B9C-1F0933410B4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heliar.Composition.Mvc", "Heliar.Composition.Mvc\Heliar.Composition.Mvc.csproj", "{B2F933E9-8B89-4127-A10E-90CCFBDC1321}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heliar.Composition.WebApi", "Heliar.Composition.WebApi\Heliar.Composition.WebApi.csproj", "{7531D689-D7EE-4571-BCCA-0655B621A794}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{0B6273D3-240A-4A19-AE98-6281C5A0D5F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33184A48-3BE1-4717-BDB1-A1A983DA73E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33184A48-3BE1-4717-BDB1-A1A983DA73E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33184A48-3BE1-4717-BDB1-A1A983DA73E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33184A48-3BE1-4717-BDB1-A1A983DA73E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39A5AD59-0A65-4032-9B9C-1F0933410B4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39A5AD59-0A65-4032-9B9C-1F0933410B4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39A5AD59-0A65-4032-9B9C-1F0933410B4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39A5AD59-0A65-4032-9B9C-1F0933410B4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2F933E9-8B89-4127-A10E-90CCFBDC1321}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2F933E9-8B89-4127-A10E-90CCFBDC1321}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2F933E9-8B89-4127-A10E-90CCFBDC1321}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2F933E9-8B89-4127-A10E-90CCFBDC1321}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7531D689-D7EE-4571-BCCA-0655B621A794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7531D689-D7EE-4571-BCCA-0655B621A794}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7531D689-D7EE-4571-BCCA-0655B621A794}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7531D689-D7EE-4571-BCCA-0655B621A794}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
