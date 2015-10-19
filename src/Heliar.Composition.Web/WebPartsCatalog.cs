@@ -57,8 +57,8 @@ namespace Heliar.Composition.Web
 				.Export()
 				.ExportInterfaces(t => t != typeof(IDisposable));
 
-			conventions.ForTypesMatching(t => IsAPart(t) && t.GetCustomAttributes(typeof(ApplicationSharedAttribute), true).Any())
-				.AddMetadata(ApplicationSharedAttribute.MetadataValue, true);
+			conventions.ForTypesMatching(t => IsAPart(t) && t.GetCustomAttributes(typeof(ApplicationScopedAttribute), true).Any())
+				.AddMetadata(ApplicationScopedAttribute.MetadataValue, true);
 
 			return conventions;
 		}

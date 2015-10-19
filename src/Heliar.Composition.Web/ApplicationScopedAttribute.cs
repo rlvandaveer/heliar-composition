@@ -6,8 +6,8 @@ namespace Heliar.Composition.Web
 	/// This attribute designates that a part's lifetime should be scoped to the application.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-	public class ApplicationSharedAttribute : Attribute
+	public class ApplicationScopedAttribute : Attribute
 	{
-		public const string MetadataValue = Constants.ApplicationShared;
+		public const string MetadataValue = Constants.ApplicationScoped;
 	}
 }

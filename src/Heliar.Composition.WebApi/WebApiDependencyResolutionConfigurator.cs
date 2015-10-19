@@ -1,13 +1,14 @@
 ﻿using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Filters;
+using System.Web.Http.Routing;
 
 using Heliar.Composition.Web;
 
 namespace Heliar.Composition.WebApi
 {
 	/// <summary>
-	/// Class that configures WebAPI's dependency resolver.
+	/// Class that configures the types that resolve dependencies within WebAPI.
 	/// </summary>
 	public class WebApiDependencyResolutionConfigurator : IDependencyResolutionConfigurator
 	{
@@ -19,12 +20,21 @@ namespace Heliar.Composition.WebApi
 		public void Configure()
 		{
 			this.SetResolver();
-			//var providers = config.Services.GetFilterProviders().ToList();
-			//var defaultProvider = providers.Single(i => i is ActionDescriptorFilterProvider);
-			//config.Services.Remove(typeof(IFilterProvider), defaultProvider);
+			this.SetFilterProvider();
+			this.SetInlineConstraintResolver();
+		}
 
-			//config.Services.Add(typeof(IFilterProvider), HeliarCompositionProvider.Current.
+		private void SetFilterProvider()
+		{
+			var providers = config.Services.GetFilterProviders().ToList();
+			var defaultProvider = providers.Single(p => p is ActionDescriptorFilterProvider);
+			config.Services.Remove(typeof(IFilterProvider), defaultProvider);
+			config.Services.Add(typeof(IFilterProvider), HeliarCompositionProvider.ApplicationScopedContainer.GetExportedValue<IFilterProvider>());
+		}
 
+		private void SetInlineConstraintResolver()
+		{
+			config.MapHttpAttributeRoutes(HeliarCompositionProvider.ApplicationScopedContainer.GetExportedValue<IInlineConstraintResolver>());
 		}
 
 		private void SetResolver()

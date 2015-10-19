@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Heliar.Composition.Web
 {
+	/// <summary>
+	/// Class that provides constant values.
+	/// </summary>
 	public static class Constants
 	{
-		public const string ApplicationShared = "ApplicationShared";
+		/// <summary>
+		/// Constant value that is used to specifies that a type should be scoped per the application not per web request
+		/// </summary>
+		public const string ApplicationScoped = "ApplicationScoped";
 	}
 }

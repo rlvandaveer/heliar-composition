@@ -7,12 +7,19 @@ using System.Threading.Tasks;
 
 namespace Heliar.Composition.Web
 {
+	/// <summary>
+	/// Class adds helper methods to <see cref="RegistrationBuilder"/>s.
+	/// </summary>
 	public static class RegistrationBuilderExtensions
 	{
-		public static void ForApplicationShared(this RegistrationBuilder conventions)
+		/// <summary>
+		/// Builds a MEF convention for types decorated with <see cref="ApplicationScopedAttribute"/>.
+		/// </summary>
+		/// <param name="conventions">The conventions.</param>
+		public static void ForApplicationScoped(this RegistrationBuilder conventions)
 		{
-			conventions.ForTypesMatching(t => t.GetCustomAttributes(typeof(ApplicationSharedAttribute), true).Any())
-				.AddMetadata(ApplicationSharedAttribute.MetadataValue, true);
+			conventions.ForTypesMatching(t => t.GetCustomAttributes(typeof(ApplicationScopedAttribute), true).Any())
+				.AddMetadata(ApplicationScopedAttribute.MetadataValue, true);
 		}
 	}
 }

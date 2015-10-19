@@ -47,7 +47,7 @@
     <Compile Include="..\Library\ProductAssemblyInfo.cs">
       <Link>Properties\ProductAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="ApplicationSharedAttribute.cs" />
+    <Compile Include="ApplicationScopedAttribute.cs" />
     <Compile Include="CompositionScopeDisposer.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DependencyResolutionBootstrapper.cs" />

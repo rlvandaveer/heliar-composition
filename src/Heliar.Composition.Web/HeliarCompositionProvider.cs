@@ -1,16 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : Heliar.Composition.Web
-// Author           : R. L. Vandaveer
-// Created          : 10-14-2015
-//
-// Last Modified By : R. L. Vandaveer
-// Last Modified On : 10-14-2015
-// ***********************************************************************
-// <copyright file="HeliarCompositionProvider.cs">
-//     Copyright (c)2013 - 2015 R. L. Vandaveer
-// </copyright>
-// ***********************************************************************
-using System;
+﻿using System;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
 using System.Web;
@@ -20,7 +8,9 @@ using Heliar.Composition.Core;
 namespace Heliar.Composition.Web
 {
 	/// <summary>
-	/// Class that provides composition services to a web application. This class cannot be inherited.
+	/// Class that provides composition services to a web application via two composition scopes. The first, application scope, provides a container to be used to satisfy dependencies
+	/// at an application level. The second, request scope, provides a container per web request. The container and its dependencies are torn down at the end of each web request.
+	/// This class cannot be inherited.
 	/// </summary>
 	public sealed class HeliarCompositionProvider
 	{
@@ -30,7 +20,8 @@ namespace Heliar.Composition.Web
 		private static ComposablePartCatalog RequestScopedCatalog = null;
 
 		/// <summary>
-		/// Gets the application scoped container.
+		/// Gets the <see cref="CompositionContainer"/> scoped to the application. This container and its dependencies will be torn down
+		/// when the application shuts down.
 		/// </summary>
 		/// <value>The application scoped container.</value>
 		public static CompositionContainer ApplicationScopedContainer { get; private set; }
@@ -42,7 +33,8 @@ namespace Heliar.Composition.Web
 		public static bool IsInitialized => ApplicationScopedContainer != null;
 
 		/// <summary>
-		/// Gets the composition container for the current scope.
+		/// Gets the composition container for the current request scope. This container and its dependencies will be torn down
+		/// when the request ends.
 		/// </summary>
 		/// <value>The current.</value>
 		public static CompositionContainer Current
@@ -59,7 +51,7 @@ namespace Heliar.Composition.Web
 		/// Gets the initialized composition container for the current scope.
 		/// </summary>
 		/// <value>The current initialized scope.</value>
-		public static CompositionContainer CurrentInitializedScope
+		internal static CompositionContainer CurrentInitializedScope
 		{
 			get
 			{
@@ -74,19 +66,18 @@ namespace Heliar.Composition.Web
 		/// <summary>
 		/// Initializes a new instance of the <see cref="HeliarCompositionProvider" /> class.
 		/// </summary>
-		/// <param name="bootstrapper">A catalog bootstrapper.</param>
-		/// <param name="resolverBootstrapper">The dependency resolver bootstrapper.</param>
-		public HeliarCompositionProvider(ICatalogBootstrapper bootstrapper, IDependencyResolutionBootstrapper resolverBootstrapper)
+		/// <param name="catalogBootstrapper">A catalog bootstrapper.</param>
+		/// <param name="resolutionBootstrapper">The dependency resolver bootstrapper.</param>
+		public HeliarCompositionProvider(ICatalogBootstrapper catalogBootstrapper, IDependencyResolutionBootstrapper resolutionBootstrapper)
 		{
-			if (bootstrapper == null) throw new ArgumentNullException(nameof(bootstrapper));
-			if (resolverBootstrapper == null) throw new ArgumentNullException(nameof(resolverBootstrapper));
+			if (catalogBootstrapper == null) throw new ArgumentNullException(nameof(catalogBootstrapper));
+			if (resolutionBootstrapper == null) throw new ArgumentNullException(nameof(resolutionBootstrapper));
 
-			var catalog = bootstrapper.Bootstrap();
-			var globals = catalog.Filter(cpd => cpd.ContainsPartMetadata(Constants.ApplicationShared, true)).IncludeDependencies();
+			var catalog = catalogBootstrapper.Bootstrap();
+			var globals = catalog.Filter(cpd => cpd.ContainsPartMetadata(Constants.ApplicationScoped, true)).IncludeDependencies();
 			ApplicationScopedContainer = new CompositionContainer(globals, CompositionOptions.DisableSilentRejection | CompositionOptions.IsThreadSafe);
 			RequestScopedCatalog = globals.Complement;
-
-			resolverBootstrapper.Bootstrap();
+			resolutionBootstrapper.Bootstrap();
 		}
 
 		/// <summary>
