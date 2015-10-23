@@ -4,6 +4,7 @@ using System.ComponentModel.Composition.Primitives;
 using System.Web;
 
 using Heliar.Composition.Core;
+using System.Reflection;
 
 namespace Heliar.Composition.Web
 {
@@ -27,6 +28,12 @@ namespace Heliar.Composition.Web
 		public static CompositionContainer ApplicationScopedContainer { get; private set; }
 
 		/// <summary>
+		/// Gets assembly of the executing web application.
+		/// </summary>
+		/// <value><see cref="Assembly"/> of the executing web application.</value>
+		public static Assembly WebApplicationAssembly => HttpContext.Current.GetWebApplicationAssembly();
+
+		/// <summary>
 		/// Gets a value indicating whether the provider has been initialized.
 		/// </summary>
 		/// <value><c>true</c> if the provider is initialized; otherwise, <c>false</c>.</value>
@@ -42,7 +49,8 @@ namespace Heliar.Composition.Web
 			get
 			{
 				return CurrentInitializedScope ??
-					(CurrentInitializedScope = new CompositionContainer(RequestScopedCatalog, CompositionOptions.DisableSilentRejection | CompositionOptions.IsThreadSafe,
+					(CurrentInitializedScope = new CompositionContainer(RequestScopedCatalog,
+																		CompositionOptions.DisableSilentRejection | CompositionOptions.IsThreadSafe,
 																		ApplicationScopedContainer));
 			}
 		}
