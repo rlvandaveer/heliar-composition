@@ -3,10 +3,23 @@ using System.Reflection;
 
 namespace Heliar.Composition.Core
 {
+	/// <summary>
+	/// A class that bootstraps a MEF <see cref="CompositionContainer"/> automatically in an application using types that implement <see cref="ILibraryDependencyRegistrar"/>s
+	/// and <see cref="IApplicationDependencyRegistrar"/>s. This class cannot be inherited.
+	/// </summary>
+	/// <remarks>Use this type if you are going to build a <see cref="CompositionContainer"/> elsewhere.</remarks>
 	public sealed class CatalogBootstrapper : BootstrapperBehavior, ICatalogBootstrapper
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="CatalogBootstrapper"/> class.
+		/// </summary>
 		public CatalogBootstrapper() : base() { }
 
+		/// <summary>
+		/// Bootstraps an <see cref="AggregateCatalog" /> by convention and/or specified params.
+		/// </summary>
+		/// <param name="assemblies">The assemblies that contain the desired dependencies.</param>
+		/// <returns>An <see cref="AggregateCatalog" /> containing dependencies.</returns>
 		public AggregateCatalog Bootstrap(params Assembly[] assemblies)
 		{
 			if (this.UseAssemblyNamingConvention)

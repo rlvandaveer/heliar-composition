@@ -10,10 +10,10 @@ namespace Heliar.Composition.Core
 	public interface ICatalogBootstrapper : IBootstrapperBehavior
 	{
 		/// <summary>
-		/// Wires up a <see cref="ComposablePartCatalog"/>.
+		/// Bootstraps an <see cref="AggregateCatalog" /> by convention and/or specified params.
 		/// </summary>
 		/// <param name="assemblies">The assemblies that contain the desired dependencies.</param>
-		/// <returns>An <see cref="AggregateCatalog"/> containing dependencies.</returns>
+		/// <returns>An <see cref="AggregateCatalog" /> containing dependencies.</returns>
 		AggregateCatalog Bootstrap(params Assembly[] assemblies);
 	}
 }

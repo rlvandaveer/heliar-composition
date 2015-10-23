@@ -1,15 +1,11 @@
-﻿using System;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
-using System.ComponentModel.Composition.Primitives;
-using System.ComponentModel.Composition.Registration;
+﻿using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
 
 namespace Heliar.Composition.Core
 {
 	/// <summary>
 	/// A class that bootstraps a MEF <see cref="CompositionContainer"/> automatically in an application using types that implement <see cref="ILibraryDependencyRegistrar"/>s
-	/// and <see cref="IApplicationDependencyRegistrar"/>s.
+	/// and <see cref="IApplicationDependencyRegistrar"/>s. This class cannot be inherited.
 	/// </summary>
 	public sealed class ContainerBootstrapper : BootstrapperBehavior, IContainerBootstrapper
 	{
