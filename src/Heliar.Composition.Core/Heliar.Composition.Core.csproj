@@ -56,6 +56,7 @@
     <Compile Include="IContainerBootstrapper.cs" />
     <Compile Include="IBootstrapperBehavior.cs" />
     <Compile Include="ILibraryDependencyRegistrar.cs" />
+    <Compile Include="ApplicationDependencyRegistrarImplementationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

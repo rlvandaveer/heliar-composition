@@ -3,6 +3,7 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
 using System.ComponentModel.Composition.Registration;
+using System.Reflection;
 
 namespace Heliar.Composition.Core
 {
@@ -36,15 +37,15 @@ namespace Heliar.Composition.Core
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="BootstrapperBehavior" /> class.
+		/// Initializes a new instance of the <see cref="BootstrapperBehavior" /> class. The convention must conform to <see cref="https://msdn.microsoft.com/en-us/library/wz42302f(v=vs.110).aspx" />
 		/// </summary>
-		/// <param name="assemblyNamingConvention">The assembly naming convention.</param>
-		/// <exception cref="System.ArgumentNullException"></exception>
+		/// <param name="assemblyNamingConvention">The assembly naming convention that should be used to find assemblies.</param>
 		public BootstrapperBehavior(string assemblyNamingConvention, params ComposablePartCatalog[] catalogs) : this()
 		{
-			if (String.IsNullOrWhiteSpace(assemblyNamingConvention)) throw new ArgumentNullException(nameof(assemblyNamingConvention));
-
-			this.AssemblyNamingConvention = assemblyNamingConvention;
+			if (!String.IsNullOrWhiteSpace(assemblyNamingConvention))
+			{
+				this.AssemblyNamingConvention = assemblyNamingConvention;
+			}
 
 			foreach (var catalog in catalogs)
 			{
@@ -71,6 +72,23 @@ namespace Heliar.Composition.Core
 		public void AddCatalog(ComposablePartCatalog catalog)
 		{
 			this.Catalog.Catalogs.Add(catalog);
+		}
+
+		/// <summary>
+		/// Bootstraps the assemblies.
+		/// </summary>
+		/// <param name="assemblies">The assemblies.</param>
+		protected void BootstrapAssemblies(params Assembly[] assemblies)
+		{
+			if (this.UseAssemblyNamingConvention)
+			{
+				this.Catalog.Catalogs.Add(new DirectoryCatalog($"{Assembly.GetExecutingAssembly().GetCodeBaseDirectory()}", AssemblyNamingConvention, this.Conventions));
+			}
+
+			foreach (var assembly in assemblies)
+			{
+				this.Catalog.Catalogs.Add(new AssemblyCatalog(assembly, this.Conventions));
+			}
 		}
 	}
 }

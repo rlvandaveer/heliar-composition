@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
+using System.Linq;
 using System.Reflection;
 
 namespace Heliar.Composition.Core
@@ -29,28 +30,28 @@ namespace Heliar.Composition.Core
 		/// <returns>System.ComponentModel.Composition.Hosting.CompositionContainer.</returns>
 		public CompositionContainer Bootstrap(params Assembly[] assemblies)
 		{
-			if (this.UseAssemblyNamingConvention)
-			{
-				this.Catalog.Catalogs.Add(new DirectoryCatalog($"{Assembly.GetExecutingAssembly().GetCodeBaseDirectory()}", AssemblyNamingConvention, this.Conventions));
-			}
-
-			foreach (var assembly in assemblies)
-			{
-				this.Catalog.Catalogs.Add(new AssemblyCatalog(assembly, this.Conventions));
-			}
+			base.BootstrapAssemblies(assemblies);
 
 			var container = new CompositionContainer(this.Catalog, CompositionOptions.DisableSilentRejection | CompositionOptions.IsThreadSafe);
 
-			var bootstrappers = container.GetExportedValues<ILibraryDependencyRegistrar>();
+			var bootstrapExports = container.GetExports<ILibraryDependencyRegistrar>();
 
-			foreach (var bootstrapper in bootstrappers)
+			foreach (var bootstrapExport in bootstrapExports)
 			{
-				bootstrapper.Register(this.Catalog);
+				bootstrapExport.Value.Register(this.Catalog);
 			}
 
-			var appBootstrapper = container.GetExportedValue<IApplicationDependencyRegistrar>();
-
-			appBootstrapper.Register(this.Catalog);
+			var appBootstrapperExports = container.GetExports<IApplicationDependencyRegistrar>();
+			var count = appBootstrapperExports.Count();
+			if (count == 1)
+			{
+				var appBootstrapper = appBootstrapperExports.Single().Value;
+				appBootstrapper.Register(this.Catalog);
+			}
+			else
+			{
+				throw new ApplicationDependencyRegistrarImplementationException(count);
+			}
 
 			return container;
 		}
