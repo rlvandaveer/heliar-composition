@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Primitives;
 using System.Reflection;
 
 namespace Heliar.Composition.Core
@@ -13,6 +14,13 @@ namespace Heliar.Composition.Core
 		/// Initializes a new instance of the <see cref="ContainerBootstrapper"/> class.
 		/// </summary>
 		public ContainerBootstrapper() : base() { }
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ContainerBootstrapper" /> class.
+		/// </summary>
+		/// <param name="assemblyNamingConvention">The assembly naming convention to use to find assemblies.</param>
+		/// <param name="catalogs">An optional list of pre-wired-up catalogs.</param>
+		public ContainerBootstrapper(string assemblyNamingConvention, params ComposablePartCatalog[] catalogs) : base(assemblyNamingConvention, catalogs) { }
 
 		/// <summary>
 		/// Bootstraps a <see cref="CompositionContainer"/> by convention and/or specified params.
