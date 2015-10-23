@@ -8,7 +8,7 @@ using Heliar.Composition.Web;
 namespace Heliar.Composition.WebApi
 {
 	/// <summary>
-	/// Class that configures the types that resolve dependencies within WebAPI.
+	/// Class that configures the types that resolve dependencies within Web API.
 	/// </summary>
 	public class WebApiDependencyResolutionConfigurator : IDependencyResolutionConfigurator
 	{

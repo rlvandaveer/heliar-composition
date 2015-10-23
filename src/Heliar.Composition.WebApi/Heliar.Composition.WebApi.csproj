@@ -67,6 +67,7 @@
     <Compile Include="CompositionScopedFilterProvider.cs" />
     <Compile Include="HeliarInlineConstraintResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebApiDependencyRegistrar.cs" />
     <Compile Include="WebApiDependencyResolutionConfigurator.cs" />
   </ItemGroup>
   <ItemGroup>
