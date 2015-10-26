@@ -2,7 +2,6 @@
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Registration;
-using System.Linq;
 
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,12 +9,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Heliar.Composition.Core.Tests
 {
 	[TestClass]
-	public class CatalogBootstrapperTest
+	public class ContainerBootstrapperTest
 	{
 		[TestMethod]
 		public void EmptyCtorTest()
 		{
-			var sut = new CatalogBootstrapper();
+			var sut = new ContainerBootstrapper();
 			sut.Should().NotBeNull();
 			sut.UseAssemblyNamingConvention.Should().Be(false);
 		}
@@ -23,14 +22,14 @@ namespace Heliar.Composition.Core.Tests
 		[TestMethod]
 		public void ConventionOnlyBootstrapTest()
 		{
-			var sut = new CatalogBootstrapper("Heliar*.dll");
+			var sut = new ContainerBootstrapper("Heliar*.dll");
 			sut.Should().NotBeNull();
 			sut.AssemblyNamingConvention.Should().Be("Heliar*.dll");
 			sut.UseAssemblyNamingConvention.Should().Be(true);
 			var result = sut.Bootstrap();
 			result.Should().NotBeNull();
-			result.Catalogs.Should().HaveCount(2);
-			result.Catalogs.Select(c => c.Parts).Should().HaveCount(2);
+			result.Catalog.Parts.Should().HaveCount(2);
+
 		}
 
 		[TestMethod]
@@ -42,53 +41,25 @@ namespace Heliar.Composition.Core.Tests
 				.ExportInterfaces()
 				.Export();
 			var catalog = new AssemblyCatalog(typeof(CatalogBootstrapperTest).Assembly, conventions);
-			var sut = new CatalogBootstrapper(null, catalog);
+			var sut = new ContainerBootstrapper(null, catalog);
 			sut.Should().NotBeNull();
 			sut.AssemblyNamingConvention.Should().BeNull();
 			sut.UseAssemblyNamingConvention.Should().Be(false);
 			var result = sut.Bootstrap();
 			result.Should().NotBeNull();
-			result.Catalogs.Should().HaveCount(2);
-			result.Catalogs.Select(c => c.Parts).Should().HaveCount(2);
+			result.Catalog.Parts.Should().HaveCount(2);
 		}
 
 		[TestMethod]
 		public void CatalogAndConventionBootstrapTest()
 		{
-			var sut = new CatalogBootstrapper("Heliar*.dll", new AssemblyCatalog(typeof(CatalogBootstrapperTest).Assembly));
+			var sut = new ContainerBootstrapper("Heliar*.dll", new AssemblyCatalog(typeof(CatalogBootstrapperTest).Assembly));
 			sut.Should().NotBeNull();
 			sut.AssemblyNamingConvention.Should().Be("Heliar*.dll");
 			sut.UseAssemblyNamingConvention.Should().Be(true);
 			var result = sut.Bootstrap();
 			result.Should().NotBeNull();
-			result.Catalogs.Should().HaveCount(3);
-			result.Catalogs.SelectMany(c => c.Parts).Should().HaveCount(2);
-		}
-
-		[TestMethod]
-		[ExpectedException(typeof(ApplicationDependencyRegistrarImplementationException))]
-		public void NoApplicationDependencyRegistrarTest()
-		{
-			var sut = new CatalogBootstrapper();
-			sut.Should().NotBeNull();
-			sut.UseAssemblyNamingConvention.Should().Be(false);
-			var result = sut.Bootstrap();
-		}
-
-		[TestMethod]
-		public void CompositionBootstrapTest()
-		{
-			var sut = new CatalogBootstrapper("Heliar*.dll");
-			sut.Should().NotBeNull();
-			sut.AssemblyNamingConvention.Should().Be("Heliar*.dll");
-			sut.UseAssemblyNamingConvention.Should().Be(true);
-			var catalog = sut.Bootstrap();
-			catalog.Should().NotBeNull();
-			catalog.Catalogs.Should().HaveCount(2);
-			var container = new CompositionContainer(catalog);
-			var result = container.GetExportedValue<IFoo>();
-			result.Should().NotBeNull();
-			result.Name.Should().Be("Foo");
+			result.Catalog.Parts.Should().HaveCount(2);
 		}
 	}
 }

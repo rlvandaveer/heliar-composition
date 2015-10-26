@@ -32,4 +32,10 @@ namespace Heliar.Composition.Core.Tests
 		public string Name { get; set; }
 		public Foo() { this.Name = "Foo"; }
 	}
+
+	class FooBar : IFoo
+	{
+		public string Name { get; set; }
+		public FooBar() { this.Name = "Foo Bar"; }
+	}
 }
