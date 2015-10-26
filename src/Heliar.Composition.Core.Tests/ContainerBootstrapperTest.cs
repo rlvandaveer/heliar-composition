@@ -63,5 +63,15 @@ namespace Heliar.Composition.Core.Tests
 			result.Should().NotBeNull();
 			result.Catalog.Parts.Should().HaveCount(2);
 		}
+
+		[TestMethod]
+		public void AssemblyBootstrapTest()
+		{
+			var sut = new ContainerBootstrapper("Heliar*.dll");
+			sut.Should().NotBeNull();
+			var result = sut.Bootstrap(typeof(Samples.Business.BusinessDependencyRegistrar).Assembly, typeof(Samples.Data.DataDependencyRegistrar).Assembly);
+			result.Should().NotBeNull();
+			result.Catalog.Parts.Should().HaveCount(4);
+		}
 	}
 }

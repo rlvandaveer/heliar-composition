@@ -86,6 +86,14 @@
       <Project>{33184a48-3be1-4717-bdb1-a1a983da73e0}</Project>
       <Name>Heliar.Composition.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Samples.Business\Samples.Business.csproj">
+      <Project>{4e12dc0f-8bdf-4528-942b-ae6486f3819c}</Project>
+      <Name>Samples.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Samples.Data\Samples.Data.csproj">
+      <Project>{62af801b-ee99-4127-b080-7c91dc81d9b2}</Project>
+      <Name>Samples.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

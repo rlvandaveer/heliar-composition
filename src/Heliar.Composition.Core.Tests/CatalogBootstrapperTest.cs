@@ -7,6 +7,7 @@ using System.Linq;
 
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Reflection;
 
 namespace Heliar.Composition.Core.Tests
 {
@@ -91,6 +92,17 @@ namespace Heliar.Composition.Core.Tests
 			var result = container.GetExportedValue<IFoo>();
 			result.Should().NotBeNull();
 			result.Name.Should().Be("Foo");
+		}
+
+		[TestMethod]
+		public void AssemblyBootstrapTest()
+		{
+			var sut = new CatalogBootstrapper("Heliar*.dll");
+			sut.Should().NotBeNull();
+			var result = sut.Bootstrap(typeof(Samples.Business.BusinessDependencyRegistrar).Assembly, typeof(Samples.Data.DataDependencyRegistrar).Assembly);
+			result.Should().NotBeNull();
+			result.Catalogs.Should().HaveCount(4);
+			result.Catalogs.SelectMany(c => c.Parts).Should().HaveCount(4);
 		}
 	}
 }
