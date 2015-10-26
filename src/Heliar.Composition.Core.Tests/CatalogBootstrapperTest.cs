@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Registration;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 using FluentAssertions;
@@ -10,6 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Heliar.Composition.Core.Tests
 {
 	[TestClass]
+	[ExcludeFromCodeCoverage]
 	public class CatalogBootstrapperTest
 	{
 		[TestMethod]
