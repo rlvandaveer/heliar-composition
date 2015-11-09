@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition.Hosting;
+﻿using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Registration;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Heliar.Composition.Core;
 
@@ -15,7 +12,16 @@ namespace Samples.Data
 	{
 		public void Register(AggregateCatalog catalog)
 		{
-			//throw new NotImplementedException();
+			RegistrationBuilder conventions = new RegistrationBuilder();
+			conventions.ForTypesMatching(t => t.Name.EndsWith("Repository"))
+				.SetCreationPolicy(CreationPolicy.Shared)
+				.ExportInterfaces()
+				.Export();
+			conventions.ForTypesDerivedFrom<IConnectionFactory>()
+				.SetCreationPolicy(CreationPolicy.Shared)
+				.ExportInterfaces()
+				.Export();
+			catalog.Catalogs.Add(new AssemblyCatalog(typeof(Customer).Assembly, conventions));
 		}
 	}
 }

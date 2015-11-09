@@ -23,7 +23,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Business", "Samples
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Data", "Samples.Data\Samples.Data.csproj", "{62AF801B-EE99-4127-B080-7C91DC81D9B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Console", "Samples.Console\Samples.Console.csproj", "{1B3BF2E1-DA19-4B43-B79A-AA0FE17A7805}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.ConsoleApp", "Samples.Console\Samples.ConsoleApp.csproj", "{1B3BF2E1-DA19-4B43-B79A-AA0FE17A7805}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Common", "Samples.Common\Samples.Common.csproj", "{591CA3AC-0457-40D8-B956-D3CEEECF83F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{1B3BF2E1-DA19-4B43-B79A-AA0FE17A7805}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B3BF2E1-DA19-4B43-B79A-AA0FE17A7805}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B3BF2E1-DA19-4B43-B79A-AA0FE17A7805}.Release|Any CPU.Build.0 = Release|Any CPU
+		{591CA3AC-0457-40D8-B956-D3CEEECF83F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{591CA3AC-0457-40D8-B956-D3CEEECF83F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{591CA3AC-0457-40D8-B956-D3CEEECF83F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{591CA3AC-0457-40D8-B956-D3CEEECF83F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,5 +78,6 @@ Global
 		{4E12DC0F-8BDF-4528-942B-AE6486F3819C} = {473E8874-A3DF-4FFD-9A62-F06E4268AFF5}
 		{62AF801B-EE99-4127-B080-7C91DC81D9B2} = {473E8874-A3DF-4FFD-9A62-F06E4268AFF5}
 		{1B3BF2E1-DA19-4B43-B79A-AA0FE17A7805} = {473E8874-A3DF-4FFD-9A62-F06E4268AFF5}
+		{591CA3AC-0457-40D8-B956-D3CEEECF83F3} = {473E8874-A3DF-4FFD-9A62-F06E4268AFF5}
 	EndGlobalSection
 EndGlobal

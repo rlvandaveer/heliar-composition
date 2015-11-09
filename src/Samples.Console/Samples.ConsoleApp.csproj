@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{62AF801B-EE99-4127-B080-7C91DC81D9B2}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{1B3BF2E1-DA19-4B43-B79A-AA0FE17A7805}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Samples.Data</RootNamespace>
-    <AssemblyName>Samples.Data</AssemblyName>
+    <RootNamespace>Samples.ConsoleApp</RootNamespace>
+    <AssemblyName>Samples.ConsoleApp</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,22 +46,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Customer.cs" />
-    <Compile Include="CustomerRepository.cs" />
-    <Compile Include="DataDependencyRegistrar.cs" />
-    <Compile Include="IConnectionFactory.cs" />
-    <Compile Include="ICustomerRepository.cs" />
+    <Compile Include="ConsoleDependencyRegistrar.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SampleConnectionFactory.cs" />
+    <Compile Include="SampleLogger.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Heliar.Composition.Core\Heliar.Composition.Core.csproj">
       <Project>{33184a48-3be1-4717-bdb1-a1a983da73e0}</Project>
       <Name>Heliar.Composition.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Samples.Business\Samples.Business.csproj">
+      <Project>{4e12dc0f-8bdf-4528-942b-ae6486f3819c}</Project>
+      <Name>Samples.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Samples.Common\Samples.Common.csproj">
       <Project>{591ca3ac-0457-40d8-b956-d3ceeecf83f3}</Project>
       <Name>Samples.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Samples.Data\Samples.Data.csproj">
+      <Project>{62af801b-ee99-4127-b080-7c91dc81d9b2}</Project>
+      <Name>Samples.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
