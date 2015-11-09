@@ -4,7 +4,6 @@ using System.ComponentModel.Composition.Registration;
 using System.Web.Http.Controllers;
 
 using Heliar.Composition.Core;
-using System.Reflection;
 using Heliar.Composition.Web;
 
 namespace Heliar.Composition.WebApi

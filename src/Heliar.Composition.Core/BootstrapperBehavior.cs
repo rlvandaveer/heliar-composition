@@ -54,10 +54,13 @@ namespace Heliar.Composition.Core
 		}
 
 		/// <summary>
-		/// Gets a value indicating whether this instance should find and wire up assemblies of dependencies automatically by convention.
+		/// Gets a value indicating whether this instance should find and wire up assemblies of dependencies automatically by a naming convention
+		/// or whether it should wire up all assemblies in the application directory path.
 		/// </summary>
 		/// <value>
-		///   <c>true</c> if this instance should wire up dependencies by convention; otherwise, <c>false</c>.</value>
+		///		<c>true</c> if this instance should wire up dependencies by convention; <c>false</c> if it should wire up all dependencies
+		///		in the application directory path.
+		/// </value>
 		public bool UseAssemblyNamingConvention => !String.IsNullOrWhiteSpace(this.AssemblyNamingConvention);
 
 		/// <summary>
@@ -83,6 +86,10 @@ namespace Heliar.Composition.Core
 			if (this.UseAssemblyNamingConvention)
 			{
 				this.Catalog.Catalogs.Add(new DirectoryCatalog($"{Assembly.GetExecutingAssembly().GetCodeBaseDirectory()}", AssemblyNamingConvention, this.Conventions));
+			}
+			else
+			{
+				this.Catalog.Catalogs.Add(new ApplicationCatalog(this.Conventions));
 			}
 
 			foreach (var assembly in assemblies)

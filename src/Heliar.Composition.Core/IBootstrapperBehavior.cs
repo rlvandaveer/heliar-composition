@@ -13,9 +13,10 @@ namespace Heliar.Composition.Core
 	public interface IBootstrapperBehavior
 	{
 		/// <summary>
-		/// Gets a value indicating whether the boostrapper should find assemblies of dependencies using a naming convention.
+		/// Gets a value indicating whether the boostrapper should find assemblies of dependencies using a naming convention or whether it should find them
+		/// using the application's directory path.
 		/// </summary>
-		/// <value><c>true</c> if [use assembly convention]; otherwise, <c>false</c>.</value>
+		/// <value><c>true</c> if using an assembly naming convention; otherwise, <c>false</c>.</value>
 		bool UseAssemblyNamingConvention { get; }
 
 		/// <summary>
