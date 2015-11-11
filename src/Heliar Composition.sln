@@ -80,4 +80,12 @@ Global
 		{1B3BF2E1-DA19-4B43-B79A-AA0FE17A7805} = {473E8874-A3DF-4FFD-9A62-F06E4268AFF5}
 		{591CA3AC-0457-40D8-B956-D3CEEECF83F3} = {473E8874-A3DF-4FFD-9A62-F06E4268AFF5}
 	EndGlobalSection
+	GlobalSection(AutomaticVersions) = postSolution
+		UpdateAssemblyVersion.Release|Any CPU = True
+		UpdateAssemblyFileVersion.Release|Any CPU = True
+		UpdateAssemblyInfoVersion.Release|Any CPU = True
+		AssemblyVersionSettings.Release|Any CPU = None.None.IncrementOnDemandWithReset.Increment
+		AssemblyFileVersionSettings.Release|Any CPU = None.None.IncrementOnDemandWithReset.Increment
+		AssemblyInfoVersionSettings.Release|Any CPU = None.None.IncrementOnDemandWithReset.Increment
+	EndGlobalSection
 EndGlobal
