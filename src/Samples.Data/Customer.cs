@@ -1,8 +1,9 @@
 ﻿using System;
+using Samples.Common;
 
 namespace Samples.Data
 {
-	public class Customer
+	public class Customer : ICustomer
 	{
 		public int Id { get; set; }
 		public string FirstName { get; set; }

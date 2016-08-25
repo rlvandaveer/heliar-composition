@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Samples.Data
+namespace Samples.Common
 {
 	public interface ICustomerRepository
 	{
-		Customer Create();
-		IList<Customer> Read();
-		Customer Read(int customerId);
-		void Update(Customer customer);
+		ICustomer Create();
+		IList<ICustomer> Read();
+		ICustomer Read(int customerId);
+		void Update(ICustomer customer);
 		void Delete(int customerId);
 	}
 }

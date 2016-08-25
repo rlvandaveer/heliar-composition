@@ -10,18 +10,16 @@ namespace Samples.Data
 	[ExcludeFromCodeCoverage]
 	public class DataDependencyRegistrar : ILibraryDependencyRegistrar
 	{
-		public void Register(AggregateCatalog catalog)
+		public void Register(RegistrationBuilder registrations)
 		{
-			RegistrationBuilder conventions = new RegistrationBuilder();
-			conventions.ForTypesMatching(t => t.Name.EndsWith("Repository"))
+			registrations.ForTypesMatching(t => t.Name.EndsWith("Repository"))
 				.SetCreationPolicy(CreationPolicy.Shared)
 				.ExportInterfaces()
 				.Export();
-			conventions.ForTypesDerivedFrom<IConnectionFactory>()
+			registrations.ForTypesDerivedFrom<IConnectionFactory>()
 				.SetCreationPolicy(CreationPolicy.Shared)
 				.ExportInterfaces()
 				.Export();
-			catalog.Catalogs.Add(new AssemblyCatalog(typeof(Customer).Assembly, conventions));
 		}
 	}
 }

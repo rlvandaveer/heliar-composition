@@ -13,6 +13,8 @@ namespace Heliar.Composition.Core.Tests
 	[ExcludeFromCodeCoverage]
 	public class ContainerBootstrapperTest
 	{
+		const string assemblyExpression = "Heliar*.dll";
+
 		[TestMethod]
 		public void EmptyCtorTest()
 		{
@@ -24,54 +26,65 @@ namespace Heliar.Composition.Core.Tests
 		[TestMethod]
 		public void ConventionOnlyBootstrapTest()
 		{
-			var sut = new ContainerBootstrapper("Heliar*.dll");
+			var sut = new ContainerBootstrapper(assemblyExpression);
 			sut.Should().NotBeNull();
-			sut.AssemblyNamingConvention.Should().Be("Heliar*.dll");
+			sut.AssemblyNamingConvention.Should().Be(assemblyExpression);
 			sut.UseAssemblyNamingConvention.Should().Be(true);
 			var result = sut.Bootstrap();
 			result.Should().NotBeNull();
-			result.Catalog.Parts.Should().HaveCount(2);
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Heliar.Composition.Core.Tests.TestApplicationDependencyRegistrar");
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Heliar.Composition.Core.Tests.Foo");
+			result.Catalog.Parts.Should().NotContain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Business.BusinessDependencyRegistrar");
+			result.Catalog.Parts.Should().NotContain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Data.DataDependencyRegistrar");
 
 		}
 
 		[TestMethod]
 		public void CatalogOnlyBootstrapTest()
 		{
-			var conventions = new RegistrationBuilder();
-			conventions.ForTypesDerivedFrom<IApplicationDependencyRegistrar>()
-				.SetCreationPolicy(CreationPolicy.Shared)
-				.ExportInterfaces()
-				.Export();
-			var catalog = new AssemblyCatalog(typeof(CatalogBootstrapperTest).Assembly, conventions);
+			var catalog = new AssemblyCatalog(typeof(CatalogBootstrapperTest).Assembly);
 			var sut = new ContainerBootstrapper(null, catalog);
 			sut.Should().NotBeNull();
 			sut.AssemblyNamingConvention.Should().BeNull();
 			sut.UseAssemblyNamingConvention.Should().Be(false);
 			var result = sut.Bootstrap();
 			result.Should().NotBeNull();
-			result.Catalog.Parts.Should().HaveCount(2);
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Heliar.Composition.Core.Tests.TestApplicationDependencyRegistrar");
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Business.BusinessDependencyRegistrar");
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Data.DataDependencyRegistrar");
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Heliar.Composition.Core.Tests.Foo");
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Business.CustomerService");
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Data.CustomerRepository");
 		}
 
 		[TestMethod]
 		public void CatalogAndConventionBootstrapTest()
 		{
-			var sut = new ContainerBootstrapper("Heliar*.dll", new AssemblyCatalog(typeof(CatalogBootstrapperTest).Assembly));
+			var sut = new ContainerBootstrapper(assemblyExpression, new AssemblyCatalog(typeof(CatalogBootstrapperTest).Assembly));
 			sut.Should().NotBeNull();
-			sut.AssemblyNamingConvention.Should().Be("Heliar*.dll");
+			sut.AssemblyNamingConvention.Should().Be(assemblyExpression);
 			sut.UseAssemblyNamingConvention.Should().Be(true);
 			var result = sut.Bootstrap();
 			result.Should().NotBeNull();
-			result.Catalog.Parts.Should().HaveCount(2);
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Heliar.Composition.Core.Tests.TestApplicationDependencyRegistrar");
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Heliar.Composition.Core.Tests.Foo");
+			result.Catalog.Parts.Should().NotContain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Business.BusinessDependencyRegistrar");
+			result.Catalog.Parts.Should().NotContain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Data.DataDependencyRegistrar");
 		}
 
 		[TestMethod]
 		public void AssemblyBootstrapTest()
 		{
-			var sut = new ContainerBootstrapper("Heliar*.dll");
+			var sut = new ContainerBootstrapper();
 			sut.Should().NotBeNull();
-			var result = sut.Bootstrap(typeof(Samples.Business.BusinessDependencyRegistrar).Assembly, typeof(Samples.Data.DataDependencyRegistrar).Assembly);
+			var result = sut.Bootstrap(null, typeof(Samples.Business.BusinessDependencyRegistrar).Assembly, typeof(Samples.Data.DataDependencyRegistrar).Assembly);
 			result.Should().NotBeNull();
-			result.Catalog.Parts.Should().HaveCount(4);
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Heliar.Composition.Core.Tests.TestApplicationDependencyRegistrar");
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Business.BusinessDependencyRegistrar");
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Data.DataDependencyRegistrar");
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Heliar.Composition.Core.Tests.Foo");
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Business.CustomerService");
+			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Data.CustomerRepository");
 		}
 	}
 }

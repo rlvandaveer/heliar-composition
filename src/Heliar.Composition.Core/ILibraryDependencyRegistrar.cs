@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Registration;
 
 namespace Heliar.Composition.Core
 {
@@ -8,9 +9,9 @@ namespace Heliar.Composition.Core
 	public interface ILibraryDependencyRegistrar
 	{
 		/// <summary>
-		/// Bootstraps the dependencies within this library and adds them to the specified catalog.
+		/// Bootstraps the dependencies within this library.
 		/// </summary>
-		/// <param name="catalog">The catalog to add dependencies to.</param>
-		void Register(AggregateCatalog catalog);
+		/// <param name="registrations">The registrations.</param>
+		void Register(RegistrationBuilder registrations);
 	}
 }

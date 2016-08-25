@@ -11,7 +11,7 @@ namespace Samples.Data
 {
 	public class CustomerRepository : ICustomerRepository
 	{
-		private readonly Dictionary<int, Customer> customers = new Dictionary<int, Customer>();
+		private readonly Dictionary<int, ICustomer> customers = new Dictionary<int, ICustomer>();
 		private readonly IDbConnection connection = null;
 		private readonly ILogger logger = null;
 
@@ -21,10 +21,9 @@ namespace Samples.Data
 			this.logger = logger;
 		}
 
-		public Customer Create()
+		public ICustomer Create()
 		{
-			var customer = new Customer();
-			customer.Id = customers.Any() ? customers.Max(item => item.Key) + 1 : 1;
+			var customer = new Customer {Id = customers.Any() ? customers.Max(item => item.Key) + 1 : 1};
 			customers.Add(customer.Id, customer);
 			logger.Debug($"Customer {customer.Id} created");
 			return customer;
@@ -36,18 +35,18 @@ namespace Samples.Data
 			logger.Debug($"Customer {customerId} deleted");
 		}
 
-		public IList<Customer> Read()
+		public IList<ICustomer> Read()
 		{
 			return customers.Select(item => item.Value).ToList();
 		}
 
-		public Customer Read(int customerId)
+		public ICustomer Read(int customerId)
 		{
 			var entry = customers.FirstOrDefault(item => item.Key == customerId);
 			return entry.Value;
 		}
 
-		public void Update(Customer customer)
+		public void Update(ICustomer customer)
 		{
 			if (customer == null) throw new ArgumentNullException(nameof(customer));
 

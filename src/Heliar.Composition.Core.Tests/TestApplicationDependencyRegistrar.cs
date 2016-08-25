@@ -13,14 +13,12 @@ namespace Heliar.Composition.Core.Tests
 	[ExcludeFromCodeCoverage]
 	class TestApplicationDependencyRegistrar : IApplicationDependencyRegistrar
 	{
-		public void Register(AggregateCatalog catalog)
+		public void Register(RegistrationBuilder registrations)
 		{
-			var rb = new RegistrationBuilder();
-			rb.ForType<Foo>()
+			registrations.ForType<Foo>()
 				.SetCreationPolicy(CreationPolicy.NonShared)
 				.ExportInterfaces()
 				.Export();
-			catalog.Catalogs.Add(new AssemblyCatalog(typeof(Foo).Assembly, rb));
 		}
 	}
 

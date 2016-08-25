@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
+using System.ComponentModel.Composition.Registration;
 using System.Linq;
 using System.Reflection;
 
@@ -22,7 +23,7 @@ namespace Heliar.Composition.Core
 		/// Initializes a new instance of the <see cref="BootstrapperBehavior" /> class.
 		/// </summary>
 		/// <param name="assemblyNamingConvention">The assembly naming convention to use to find assemblies.</param>
-		/// <param name="catalogs">An optional list of pre-wired-up catalogs.</param>
+		/// <param name="catalogs">An optional parameter list of pre-wired-up <see cref="ComposablePartCatalog" />s.</param>
 		public CatalogBootstrapper(string assemblyNamingConvention, params ComposablePartCatalog[] catalogs) : base(assemblyNamingConvention, catalogs) { }
 
 		/// <summary>
@@ -30,9 +31,11 @@ namespace Heliar.Composition.Core
 		/// </summary>
 		/// <param name="assemblies">The assemblies that contain the desired dependencies.</param>
 		/// <returns>An <see cref="AggregateCatalog" /> containing dependencies.</returns>
-		public AggregateCatalog Bootstrap(params Assembly[] assemblies)
+		public AggregateCatalog Bootstrap(Action<RegistrationBuilder> registrationFinisher = null, params Assembly[] assemblies)
 		{
 			base.BootstrapAssemblies(assemblies);
+
+			var registrations = new RegistrationBuilder();
 
 			using (var container = new CompositionContainer(this.Catalog, CompositionOptions.DisableSilentRejection))
 			{
@@ -40,22 +43,26 @@ namespace Heliar.Composition.Core
 
 				foreach (var bootstrapExport in bootstrapExports)
 				{
-					bootstrapExport.Value.Register(this.Catalog);
+					bootstrapExport.Value.Register(registrations);
 				}
 
+				//TODO: RLV - Reconsider whether requiring application registrar is best approach
 				var appBootstrapperExports = container.GetExports<IApplicationDependencyRegistrar>();
-				var count = appBootstrapperExports.Count();
-				if (count == 1)
+				try
 				{
 					var appBootstrapper = appBootstrapperExports.Single().Value;
-					appBootstrapper.Register(this.Catalog);
+					appBootstrapper.Register(registrations);
 				}
-				else
+				catch (Exception)
 				{
-					throw new ApplicationDependencyRegistrarImplementationException(count);
+					throw new ApplicationDependencyRegistrarImplementationException(appBootstrapperExports.Count());
 				}
 			}
 
+			// Allow caller to complete any last minute registrations
+			registrationFinisher?.Invoke(registrations);
+
+			this.Catalog.Catalogs.Add(new ApplicationCatalog(registrations));
 			return this.Catalog;
 		}
 	}

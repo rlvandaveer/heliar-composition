@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Registration;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
@@ -13,9 +15,12 @@ namespace Samples.Business
 	[ExcludeFromCodeCoverage]
 	public class BusinessDependencyRegistrar : ILibraryDependencyRegistrar
 	{
-		public void Register(AggregateCatalog catalog)
+		public void Register(RegistrationBuilder registrations)
 		{
-			//throw new NotImplementedException();
+			registrations.ForTypesMatching(t => t.Name.EndsWith("Service"))
+				.SetCreationPolicy(CreationPolicy.Shared)
+				.ExportInterfaces()
+				.Export();
 		}
 	}
 }

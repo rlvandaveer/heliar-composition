@@ -11,7 +11,7 @@
     <AssemblyName>Samples.Business</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyVersion>1.0.1.1</AssemblyVersion>
+    <AssemblyVersion>1.0.3.3</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,12 +51,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessDependencyRegistrar.cs" />
+    <Compile Include="CustomerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Heliar.Composition.Core\Heliar.Composition.Core.csproj">
       <Project>{33184a48-3be1-4717-bdb1-a1a983da73e0}</Project>
       <Name>Heliar.Composition.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Samples.Common\Samples.Common.csproj">
+      <Project>{591ca3ac-0457-40d8-b956-d3ceeecf83f3}</Project>
+      <Name>Samples.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Samples.Data\Samples.Data.csproj">
       <Project>{62af801b-ee99-4127-b080-7c91dc81d9b2}</Project>

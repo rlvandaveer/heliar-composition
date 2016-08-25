@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
+using System.ComponentModel.Composition.Registration;
 using System.Reflection;
 
 namespace Heliar.Composition.Core
@@ -11,9 +12,9 @@ namespace Heliar.Composition.Core
 	public interface IApplicationDependencyRegistrar
 	{
 		/// <summary>
-		/// Registers the dependencies within this application and adds them to the specified catalog.
+		/// Registers the dependencies within this application.
 		/// </summary>
-		/// <param name="catalog">The catalog to add dependencies to.</param>
-		void Register(AggregateCatalog catalog);
+		/// <param name="registrations">The registrations.</param>
+		void Register(RegistrationBuilder registrations);
 	}
 }

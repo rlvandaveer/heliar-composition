@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.Composition.Hosting;
+﻿using System;
+using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Registration;
 using System.Reflection;
 
 namespace Heliar.Composition.Core
@@ -13,6 +15,6 @@ namespace Heliar.Composition.Core
 		/// </summary>
 		/// <param name="assemblies">The assemblies that contain the desired dependencies.</param>
 		/// <returns>A <see cref="CompositionContainer"/> that can resolve dependencies.</returns>
-		CompositionContainer Bootstrap(params Assembly[] assemblies);
+		CompositionContainer Bootstrap(Action<RegistrationBuilder> registrationFinisher = null, params Assembly[] assemblies);
 	}
 }

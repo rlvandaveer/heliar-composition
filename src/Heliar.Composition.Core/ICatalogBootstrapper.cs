@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.Composition.Hosting;
+﻿using System;
+using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Registration;
 using System.Reflection;
 
 namespace Heliar.Composition.Core
@@ -12,8 +14,8 @@ namespace Heliar.Composition.Core
 		/// <summary>
 		/// Bootstraps an <see cref="AggregateCatalog" /> by convention and/or specified params.
 		/// </summary>
-		/// <param name="assemblies">The assemblies that contain the desired dependencies.</param>
+		/// <param name="assemblies">Additional assemblies that contain desired dependencies.</param>
 		/// <returns>An <see cref="AggregateCatalog" /> containing dependencies.</returns>
-		AggregateCatalog Bootstrap(params Assembly[] assemblies);
+		AggregateCatalog Bootstrap(Action<RegistrationBuilder> registrationFinisher = null, params Assembly[] assemblies);
 	}
 }

@@ -16,15 +16,16 @@ namespace Heliar.Composition.Core
 		/// The core composable parts catalog
 		/// </summary>
 		protected readonly AggregateCatalog Catalog = new AggregateCatalog();
+
 		/// <summary>
-		/// The MEF conventions
+		/// Holds The MEF conventions for wiring up registrars.
 		/// </summary>
 		protected readonly RegistrationBuilder Conventions = new RegistrationBuilder();
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ContainerBootstrapper" /> class.
+		/// Initializes a new instance of the <see cref="ContainerBootstrapper" /> class. Adds dependency registrar conventions.
 		/// </summary>
-		public BootstrapperBehavior()
+		protected BootstrapperBehavior()
 		{
 			this.Conventions.ForTypesDerivedFrom<ILibraryDependencyRegistrar>()
 				.SetCreationPolicy(CreationPolicy.Shared)
@@ -39,8 +40,9 @@ namespace Heliar.Composition.Core
 		/// <summary>
 		/// Initializes a new instance of the <see cref="BootstrapperBehavior" /> class. The convention must conform to <see cref="https://msdn.microsoft.com/en-us/library/wz42302f(v=vs.110).aspx" />
 		/// </summary>
-		/// <param name="assemblyNamingConvention">The assembly naming convention that should be used to find assemblies.</param>
-		public BootstrapperBehavior(string assemblyNamingConvention, params ComposablePartCatalog[] catalogs) : this()
+		/// <param name="assemblyNamingConvention">The naming convention that should be used to find assemblies of composable types.</param>
+		/// <param name="catalogs">An optional parameter list of pre-wired-up <see cref="ComposablePartCatalog" />s.</param>
+		protected BootstrapperBehavior(string assemblyNamingConvention, params ComposablePartCatalog[] catalogs) : this()
 		{
 			if (!String.IsNullOrWhiteSpace(assemblyNamingConvention))
 			{
