@@ -17,6 +17,8 @@ namespace Heliar.Composition.Core.Tests
 	{
 		const string assemblyExpression = "Heliar*.dll";
 
+		#region Constructor Test Scenarios
+
 		/// <summary>
 		/// Using the empty constructor should set use assembly naming convention to false.
 		/// </summary>
@@ -62,6 +64,10 @@ namespace Heliar.Composition.Core.Tests
 			sut.Should().NotBeNull();
 			sut.AssemblyNamingConvention.Should().Be(assemblyExpression);
 		}
+
+		#endregion
+
+		#region Boostrap Test Scenarios
 
 		/// <summary>
 		/// Bootstrapping using only an assembly convention should only include test assembly types.
@@ -131,6 +137,7 @@ namespace Heliar.Composition.Core.Tests
 			result.Catalogs.SelectMany(c => c.Parts).Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Data.CustomerRepository");
 			result.Catalogs.SelectMany(c => c.Parts).Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Data.SampleConnectionFactory");
 		}
+
 		/// <summary>
 		/// Bootstrapping without an application dependency registrar should throw an exception.
 		/// </summary>
@@ -150,36 +157,17 @@ namespace Heliar.Composition.Core.Tests
 		//[ExpectedException(typeof(ApplicationDependencyRegistrarImplementationException))]
 		//public void BootstrappingWithMoreThanOneApplicationDependencyRegistrarShouldThrowException()
 		//{
-			//TODO: RLV - Determine how to test two IApplicationDependencyRegistrars
-			//var sut = new CatalogBootstrapper("Foo*.dll");
-			//sut.Should().NotBeNull();
-			//var result = sut.Bootstrap();
+		//TODO: RLV - Determine how to test two IApplicationDependencyRegistrars
+		//var sut = new CatalogBootstrapper("Foo*.dll");
+		//sut.Should().NotBeNull();
+		//var result = sut.Bootstrap();
 		//}
-
-		/// <summary>
-		/// Test should be able to compose <see cref="Heliar.Composition.Core.Tests.Foo"/>.
-		/// </summary>
-		[TestMethod]
-		public void ShouldBeAbleToComposeFooType()
-		{
-			var sut = new CatalogBootstrapper(assemblyExpression);
-			sut.Should().NotBeNull();
-			sut.AssemblyNamingConvention.Should().Be(assemblyExpression);
-			sut.UseAssemblyNamingConvention.Should().Be(true);
-			var catalog = sut.Bootstrap();
-			catalog.Should().NotBeNull();
-			catalog.Catalogs.Should().HaveCount(2);
-			var container = new CompositionContainer(catalog);
-			var result = container.GetExportedValue<IFoo>();
-			result.Should().NotBeNull();
-			result.Name.Should().Be("Foo");
-		}
 
 		/// <summary>
 		/// Bootstrapping using assembly parameter list should contain sample and test types.
 		/// </summary>
 		[TestMethod]
-		public void BootstrappingUsingAssemblyParamListShouldContainSampleAndTestTypes()
+		public void BootstrappingUsingAssemblyParamListShouldContainTypesInParamList()
 		{
 			var sut = new CatalogBootstrapper();
 			sut.Should().NotBeNull();
@@ -195,5 +183,7 @@ namespace Heliar.Composition.Core.Tests
 			result.Catalogs.SelectMany(c => c.Parts).Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Business.CustomerService");
 			result.Catalogs.SelectMany(c => c.Parts).Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Data.CustomerRepository");
 		}
+
+		#endregion
 	}
 }
