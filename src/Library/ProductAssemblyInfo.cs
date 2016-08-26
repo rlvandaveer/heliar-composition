@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyCompany("R. L. Vandaveer")]
 [assembly: AssemblyProduct("Heliar Composition")]
-[assembly: AssemblyCopyright("Copyright ©2013 - 2015 R. L. Vandaveer")]
+[assembly: AssemblyCopyright("Copyright ©2013 - 2016 R. L. Vandaveer")]
 [assembly: NeutralResourcesLanguage("en-US")]
 
 #if DEBUG

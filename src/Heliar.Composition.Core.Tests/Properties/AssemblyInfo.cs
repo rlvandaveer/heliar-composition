@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Heliar.Composition.Core.Tests")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCopyright("Copyright © 2013 - 2016 R. L. Vandaveer")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

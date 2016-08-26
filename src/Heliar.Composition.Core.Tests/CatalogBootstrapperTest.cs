@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : Heliar.Composition.Core.Tests
+// Author           : R. L. Vandaveer
+// Created          : 10-23-2015
+//
+// Last Modified By : R. L. Vandaveer
+// Last Modified On : 08-26-2016
+// ***********************************************************************
+// <copyright file="CatalogBootstrapperTest.cs" company="">
+//     Copyright © 2013 - 2016 R. L. Vandaveer
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Registration;
@@ -11,10 +24,16 @@ using System.Reflection;
 
 namespace Heliar.Composition.Core.Tests
 {
+	/// <summary>
+	/// Facilitates testing CatalogBootstrapper class.
+	/// </summary>
 	[TestClass]
 	[ExcludeFromCodeCoverage]
 	public class CatalogBootstrapperTest
 	{
+		/// <summary>
+		/// An expression for adding assemblies to a catalog
+		/// </summary>
 		const string assemblyExpression = "Heliar*.dll";
 
 		#region Constructor Test Scenarios

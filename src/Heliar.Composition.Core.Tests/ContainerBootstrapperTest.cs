@@ -1,4 +1,16 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : Heliar.Composition.Core.Tests
+// Author           : R. L. Vandaveer
+// Created          : 10-26-2015
+//
+// Last Modified By : R. L. Vandaveer
+// Last Modified On : 08-26-2016
+// ***********************************************************************
+// <copyright file="ContainerBootstrapperTest.cs" company="">
+//     Copyright © 2013 - 2016 R. L. Vandaveer
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Registration;
@@ -9,10 +21,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Heliar.Composition.Core.Tests
 {
+	/// <summary>
+	/// Facilitates testing ContainerBootstrapper class.
+	/// </summary>
 	[TestClass]
 	[ExcludeFromCodeCoverage]
 	public class ContainerBootstrapperTest
 	{
+		/// <summary>
+		/// An expression for adding assemblies to a catalog
+		/// </summary>
 		const string assemblyExpression = "Heliar*.dll";
 
 		#region Constructor Test Scenarios
@@ -65,6 +83,8 @@ namespace Heliar.Composition.Core.Tests
 		}
 
 		#endregion
+
+		#region Bootstrap Test Scenarios
 
 		/// <summary>
 		/// Bootstrapping using only an assembly convention should only include test assembly types.
@@ -180,5 +200,6 @@ namespace Heliar.Composition.Core.Tests
 			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Business.CustomerService");
 			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Data.CustomerRepository");
 		}
+		#endregion
 	}
 }
