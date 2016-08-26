@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : Heliar.Composition.Core
+// Author           : R. L. Vandaveer
+// Created          : 10-15-2015
+//
+// Last Modified By : R. L. Vandaveer
+// Last Modified On : 08-24-2016
+// ***********************************************************************
+// <copyright file="BootstrapperBehavior.cs" company="">
+//     Copyright © 2013 - 2016 R. L. Vandaveer. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
@@ -10,6 +23,7 @@ namespace Heliar.Composition.Core
 	/// <summary>
 	/// Base class for types that bootstrap MEF composition.
 	/// </summary>
+	/// <seealso cref="Heliar.Composition.Core.IBootstrapperBehavior" />
 	public abstract class BootstrapperBehavior : IBootstrapperBehavior
 	{
 		/// <summary>
@@ -59,14 +73,13 @@ namespace Heliar.Composition.Core
 		/// Gets a value indicating whether this instance should find and wire up assemblies of dependencies automatically by a naming convention
 		/// or whether it should wire up all assemblies in the application directory path.
 		/// </summary>
-		/// <value>
-		///		<c>true</c> if this instance should wire up dependencies by convention; <c>false</c> if it should wire up all dependencies
-		///		in the application directory path.
-		/// </value>
+		/// <value><c>true</c> if this instance should wire up dependencies by convention; <c>false</c> if it should wire up all dependencies
+		/// in the application directory path.</value>
 		public bool UseAssemblyNamingConvention => !String.IsNullOrWhiteSpace(this.AssemblyNamingConvention);
 
 		/// <summary>
-		/// Gets or sets the assembly naming convention. The convention must conform to <see cref="https://msdn.microsoft.com/en-us/library/wz42302f(v=vs.110).aspx" /></summary>
+		/// Gets or sets the assembly naming convention. The convention must conform to <see cref="https://msdn.microsoft.com/en-us/library/wz42302f(v=vs.110).aspx" />
+		/// </summary>
 		/// <value>The assembly naming convention.</value>
 		public string AssemblyNamingConvention { get; set; }
 

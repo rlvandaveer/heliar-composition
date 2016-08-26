@@ -1,4 +1,16 @@
-﻿using System.ComponentModel.Composition.Hosting;
+﻿// ***********************************************************************
+// Assembly         : Heliar.Composition.Core
+// Author           : R. L. Vandaveer
+// Created          : 10-15-2015
+//
+// Last Modified By : R. L. Vandaveer
+// Last Modified On : 11-11-2015
+// ***********************************************************************
+// <copyright file="ILibraryDependencyRegistrar.cs" company="">
+//     Copyright ©2013 - 2016 R. L. Vandaveer. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 using System.ComponentModel.Composition.Registration;
 
 namespace Heliar.Composition.Core

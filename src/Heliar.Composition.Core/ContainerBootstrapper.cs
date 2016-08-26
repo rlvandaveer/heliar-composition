@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : Heliar.Composition.Core
+// Author           : R. L. Vandaveer
+// Created          : 10-15-2015
+//
+// Last Modified By : R. L. Vandaveer
+// Last Modified On : 11-12-2015
+// ***********************************************************************
+// <copyright file="ContainerBootstrapper.cs" company="">
+//     Copyright ©2013 - 2016 R. L. Vandaveer. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
 using System.ComponentModel.Composition.Registration;
@@ -8,13 +21,15 @@ using System.Reflection;
 namespace Heliar.Composition.Core
 {
 	/// <summary>
-	/// A class that bootstraps a MEF <see cref="CompositionContainer"/> automatically in an application using types that implement <see cref="ILibraryDependencyRegistrar"/>s
-	/// and <see cref="IApplicationDependencyRegistrar"/>s. This class cannot be inherited.
+	/// A class that bootstraps a MEF <see cref="CompositionContainer" /> automatically in an application using types that implement <see cref="ILibraryDependencyRegistrar" />s
+	/// and <see cref="IApplicationDependencyRegistrar" />s. This class cannot be inherited.
 	/// </summary>
+	/// <seealso cref="Heliar.Composition.Core.BootstrapperBehavior" />
+	/// <seealso cref="Heliar.Composition.Core.IContainerBootstrapper" />
 	public sealed class ContainerBootstrapper : BootstrapperBehavior, IContainerBootstrapper
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ContainerBootstrapper"/> class.
+		/// Initializes a new instance of the <see cref="ContainerBootstrapper" /> class.
 		/// </summary>
 		public ContainerBootstrapper() : base() { }
 
@@ -26,10 +41,12 @@ namespace Heliar.Composition.Core
 		public ContainerBootstrapper(string assemblyNamingConvention, params ComposablePartCatalog[] catalogs) : base(assemblyNamingConvention, catalogs) { }
 
 		/// <summary>
-		/// Bootstraps a <see cref="CompositionContainer"/> by convention and/or specified params.
+		/// Bootstraps a <see cref="CompositionContainer" /> by convention and/or specified params.
 		/// </summary>
+		/// <param name="registrationFinisher">The registration finisher.</param>
 		/// <param name="assemblies">An optional list of assemblies.</param>
 		/// <returns>System.ComponentModel.Composition.Hosting.CompositionContainer.</returns>
+		/// <exception cref="Heliar.Composition.Core.ApplicationDependencyRegistrarImplementationException"></exception>
 		public CompositionContainer Bootstrap(Action<RegistrationBuilder> registrationFinisher = null, params Assembly[] assemblies)
 		{
 			base.BootstrapAssemblies(assemblies);
