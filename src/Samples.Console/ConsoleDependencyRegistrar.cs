@@ -1,29 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
+﻿using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Registration;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Heliar.Composition.Core;
+
 using Samples.Common;
 
 namespace Samples.ConsoleApp
 {
+	/// <summary>
+	/// This class is the Console's DependencyRegistrar.
+	/// </summary>
 	[ExcludeFromCodeCoverage]
 	public class ConsoleDependencyRegistrar : IApplicationDependencyRegistrar
 	{
-		public void Register(AggregateCatalog catalog)
+		/// <summary>
+		/// Registers the dependencies within this application.
+		/// </summary>
+		/// <param name="registrations">The registrations.</param>
+		public void Register(RegistrationBuilder registrations)
 		{
-			var conventions = new RegistrationBuilder();
-			conventions.ForTypesDerivedFrom<ILogger>()
+			registrations.ForTypesDerivedFrom<ILogger>()
 				.SetCreationPolicy(CreationPolicy.Shared)
 				.ExportInterfaces()
 				.Export();
-			catalog.Catalogs.Add(new AssemblyCatalog(typeof(SampleLogger).Assembly, conventions));
 		}
 	}
 }

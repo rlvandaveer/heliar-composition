@@ -26,6 +26,8 @@ namespace Samples.ConsoleApp
 			cust.FirstName = "Robb";
 			cust.LastName = "Vandaveer";
 			cust.DateOfBirth = new DateTime(1973, 1, 1);
+			rep.Update(cust);
+			Console.ReadKey();
 		}
 	}
 }
