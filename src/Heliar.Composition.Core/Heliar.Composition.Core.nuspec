@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/rlvandaveer/heliar-composition/raw/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/rlvandaveer/heliar-composition</projectUrl>
+    <iconUrl>https://github.com/rlvandaveer/heliar-composition/raw/master/Heliar-Logo-64x64.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright 2013 - 2016 R. L. Vandaveer</copyright>
+    <tags>Heliar composition MEF dependency injection System.ComponentModel.Composition</tags>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="System.ComponentModel.Composition" targetFramework=".NETFramework4.5" />
+            <frameworkAssembly assemblyName="System.ComponentModel.Composition.Registration" targetFramework=".NETFramework4.5" />
+            <frameworkAssembly assemblyName="System.Reflection.Context" targetFramework=".NETFramework4.5" />
+        </frameworkAssemblies>
+  </metadata>
+</package>
