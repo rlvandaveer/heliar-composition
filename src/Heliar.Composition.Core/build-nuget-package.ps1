@@ -1,0 +1,1 @@
+﻿nuget pack Heliar.Composition.Core.csproj -properties Configuration=Release -symbols
