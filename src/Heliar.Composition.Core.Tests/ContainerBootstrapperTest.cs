@@ -15,7 +15,7 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Registration;
 using System.Diagnostics.CodeAnalysis;
-
+using System.Net.Http;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -199,6 +199,17 @@ namespace Heliar.Composition.Core.Tests
 			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Heliar.Composition.Core.Tests.Foo");
 			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Business.CustomerService");
 			result.Catalog.Parts.Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Data.CustomerRepository");
+		}
+
+		[TestMethod]
+		public void TypesRegisteredInExternalAssemblyShouldBeCreateable()
+		{
+			var sut = new ContainerBootstrapper();
+			sut.Should().NotBeNull();
+			var container = sut.Bootstrap();
+			container.Should().NotBeNull();
+			var client = container.GetExportedValue<HttpClient>();
+			client.Should().NotBeNull();
 		}
 
 		//TODO: RLV - Write registrar finisher test(s)

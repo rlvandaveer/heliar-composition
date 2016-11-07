@@ -15,6 +15,8 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Registration;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Net.Http;
 
 namespace Heliar.Composition.Core.Tests
 {
@@ -36,6 +38,14 @@ namespace Heliar.Composition.Core.Tests
 				.SetCreationPolicy(CreationPolicy.NonShared)
 				.ExportInterfaces()
 				.Export();
+
+			var httpRegistrations = new RegistrationBuilder();
+			httpRegistrations.ForType<HttpClient>()
+				.SelectConstructor(ctor => { return ctor.FirstOrDefault(ci => ci.GetParameters().Length == 0); })
+				.SetCreationPolicy(CreationPolicy.NonShared)
+				.ExportInterfaces()
+				.Export();
+			catalog.Catalogs.Add(new AssemblyCatalog(typeof(HttpClient).Assembly, httpRegistrations));
 		}
 	}
 
