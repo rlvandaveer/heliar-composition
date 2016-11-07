@@ -26,6 +26,8 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
+using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Registration;
 
 namespace Heliar.Composition.Core
@@ -37,9 +39,10 @@ namespace Heliar.Composition.Core
 	public interface IApplicationDependencyRegistrar
 	{
 		/// <summary>
-		/// Registers the dependencies within this application.
+		/// Registers the dependencies (via convention) within this application.
 		/// </summary>
-		/// <param name="registrations">The registrations.</param>
-		void Register(RegistrationBuilder registrations);
+		/// <param name="registrations">The dependency registrations/conventions to wire up.</param>
+		/// <param name="catalog">An AggregateCatalog that can be added to if dependencies reside in an external assembly, i.e. BCL.</param>
+		void Register(RegistrationBuilder registrations, AggregateCatalog catalog);
 	}
 }

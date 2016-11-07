@@ -10,7 +10,12 @@ namespace Samples.Data
 	[ExcludeFromCodeCoverage]
 	public class DataDependencyRegistrar : ILibraryDependencyRegistrar
 	{
-		public void Register(RegistrationBuilder registrations)
+		/// <summary>
+		/// Bootstraps the dependencies within this library.
+		/// </summary>
+		/// <param name="registrations">The dependency registrations/conventions to wire up.</param>
+		/// <param name="catalog">An AggregateCatalog that can be added to if dependencies reside in an external assembly, i.e. BCL.</param>
+		public void Register(RegistrationBuilder registrations, AggregateCatalog catalog)
 		{
 			registrations.ForTypesMatching(t => t.Name.EndsWith("Repository"))
 				.SetCreationPolicy(CreationPolicy.Shared)

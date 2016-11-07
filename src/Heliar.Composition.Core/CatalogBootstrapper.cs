@@ -75,14 +75,14 @@ namespace Heliar.Composition.Core
 
 				foreach (var bootstrapExport in bootstrapExports)
 				{
-					bootstrapExport.Value.Register(registrations);
+					bootstrapExport.Value.Register(registrations, this.Catalog);
 				}
 
 				var appBootstrapperExports = container.GetExports<IApplicationDependencyRegistrar>();
 				try
 				{
 					var appBootstrapper = appBootstrapperExports.Single().Value;
-					appBootstrapper.Register(registrations);
+					appBootstrapper.Register(registrations, this.Catalog);
 				}
 				catch (Exception)
 				{
