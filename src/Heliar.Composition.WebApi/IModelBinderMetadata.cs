@@ -1,12 +1,12 @@
 ﻿// ***********************************************************************
 // Assembly         : Heliar.Composition.WebApi
 // Author           : R. L. Vandaveer
-// Created          : 10-15-2015
+// Created          : 11-11-2015
 //
 // Last Modified By : R. L. Vandaveer
-// Last Modified On : 10-19-2015
+// Last Modified On : 11-11-2015
 // ***********************************************************************
-// <copyright file="CompositionScopedFilterProvider.cs" company="">
+// <copyright file="IModelBinderMetadata.cs" company="">
 //	Copyright ©2015 - 2016 R. L. Vandaveer. Permission is hereby granted,
 //	free of charge, to any person obtaining a copy of this software and
 //	associated documentation files (the "Software"), to deal in the Software
@@ -26,44 +26,19 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Web.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
-
-using Heliar.Composition.Web;
+using System;
 
 namespace Heliar.Composition.WebApi
 {
 	/// <summary>
-	/// Class uses <see cref="HeliarCompositionProvider" />'s current scope to resolve filter attributes.
+	/// Interface IModelBinderMetadata
 	/// </summary>
-	/// <seealso cref="System.Web.Http.Filters.ActionDescriptorFilterProvider" />
-	/// <seealso cref="System.Web.Http.Filters.IFilterProvider" />
-	public class CompositionScopedFilterProvider : ActionDescriptorFilterProvider, IFilterProvider
+	public interface IModelBinderMetadata
 	{
 		/// <summary>
-		/// Gets the action filters.
+		/// Gets the type of the model.
 		/// </summary>
-		/// <param name="configuration">The configuration.</param>
-		/// <param name="actionDescriptor">The action descriptor.</param>
-		/// <returns>IEnumerable&lt;FilterInfo&gt;.</returns>
-		public new IEnumerable<FilterInfo> GetFilters(HttpConfiguration configuration, HttpActionDescriptor actionDescriptor)
-		{
-			var filters = base.GetFilters(configuration, actionDescriptor).ToArray();
-			this.ComposeFilters(filters);
-			return filters;
-		}
-
-		/// <summary>
-		/// Composes the filters.
-		/// </summary>
-		/// <param name="filters">The filters.</param>
-		private void ComposeFilters(FilterInfo[] filters)
-		{
-			HeliarCompositionProvider.Current.ComposeParts(filters);
-		}
+		/// <value>The type of the model.</value>
+		Type ModelType { get; }
 	}
 }

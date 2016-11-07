@@ -1,12 +1,12 @@
 ﻿// ***********************************************************************
 // Assembly         : Heliar.Composition.WebApi
 // Author           : R. L. Vandaveer
-// Created          : 10-15-2015
+// Created          : 11-12-2015
 //
 // Last Modified By : R. L. Vandaveer
-// Last Modified On : 10-19-2015
+// Last Modified On : 11-12-2015
 // ***********************************************************************
-// <copyright file="CompositionScopedFilterProvider.cs" company="">
+// <copyright file="CompositionScopedModelBinderProvider.cs" company="">
 //	Copyright ©2015 - 2016 R. L. Vandaveer. Permission is hereby granted,
 //	free of charge, to any person obtaining a copy of this software and
 //	associated documentation files (the "Software"), to deal in the Software
@@ -26,44 +26,45 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using System.Collections.Generic;
+using System;
 using System.ComponentModel.Composition;
-using System.Linq;
 using System.Web.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
+using System.Web.Http.ModelBinding;
 
 using Heliar.Composition.Web;
 
 namespace Heliar.Composition.WebApi
 {
 	/// <summary>
-	/// Class uses <see cref="HeliarCompositionProvider" />'s current scope to resolve filter attributes.
+	/// Uses a scoped composition provider to resolve model binders.
 	/// </summary>
-	/// <seealso cref="System.Web.Http.Filters.ActionDescriptorFilterProvider" />
-	/// <seealso cref="System.Web.Http.Filters.IFilterProvider" />
-	public class CompositionScopedFilterProvider : ActionDescriptorFilterProvider, IFilterProvider
+	/// <seealso cref="System.Web.Http.ModelBinding.ModelBinderProvider" />
+	class CompositionScopedModelBinderProvider : ModelBinderProvider
 	{
 		/// <summary>
-		/// Gets the action filters.
+		/// The model binder contract name suffix
 		/// </summary>
-		/// <param name="configuration">The configuration.</param>
-		/// <param name="actionDescriptor">The action descriptor.</param>
-		/// <returns>IEnumerable&lt;FilterInfo&gt;.</returns>
-		public new IEnumerable<FilterInfo> GetFilters(HttpConfiguration configuration, HttpActionDescriptor actionDescriptor)
+		const string ModelBinderContractNameSuffix = "++HttpModelBinder";
+
+		/// <summary>
+		/// Gets the name of the model binder contract.
+		/// </summary>
+		/// <param name="modelType">Type of the model.</param>
+		/// <returns>System.String.</returns>
+		public static string GetModelBinderContractName(Type modelType)
 		{
-			var filters = base.GetFilters(configuration, actionDescriptor).ToArray();
-			this.ComposeFilters(filters);
-			return filters;
+			return AttributedModelServices.GetContractName(modelType) + ModelBinderContractNameSuffix;
 		}
 
 		/// <summary>
-		/// Composes the filters.
+		/// Returns the model binder for the specified type.
 		/// </summary>
-		/// <param name="filters">The filters.</param>
-		private void ComposeFilters(FilterInfo[] filters)
+		/// <param name="configuration">A configuration object.</param>
+		/// <param name="modelType">The type of the model.</param>
+		/// <returns>The model binder for the specified type.</returns>
+		public override IModelBinder GetBinder(HttpConfiguration configuration, Type modelType)
 		{
-			HeliarCompositionProvider.Current.ComposeParts(filters);
+			return HeliarCompositionProvider.Current.GetExportedValueOrDefault<IModelBinder>(GetModelBinderContractName(modelType));
 		}
 	}
 }
