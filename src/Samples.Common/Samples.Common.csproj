@@ -11,7 +11,7 @@
     <AssemblyName>Samples.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyVersion>1.0.2.2</AssemblyVersion>
+    <AssemblyVersion>1.0.6.6</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,6 +51,8 @@
     <Compile Include="ICustomerRepository.cs" />
     <Compile Include="ICustomerService.cs" />
     <Compile Include="ILogger.cs" />
+    <Compile Include="IOrderRepository.cs" />
+    <Compile Include="IPaymentProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

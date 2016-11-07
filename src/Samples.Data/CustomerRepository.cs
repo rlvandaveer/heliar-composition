@@ -19,6 +19,11 @@ namespace Samples.Data
 		{
 			this.connection = factory.Get();
 			this.logger = logger;
+
+			var cust = this.Create();
+			cust.FirstName = "Bob";
+			cust.LastName = "Boberts";
+			cust.DateOfBirth = new DateTime(1900, 1, 1);
 		}
 
 		public ICustomer Create()

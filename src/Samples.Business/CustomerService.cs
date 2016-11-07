@@ -9,6 +9,13 @@ namespace Samples.Business
 {
 	public class CustomerService : ICustomerService
 	{
+		private ICustomerRepository repository;
+
+		public CustomerService(ICustomerRepository repository)
+		{
+			this.repository = repository;
+		}
+
 		public ICustomer GetCustomer(int Id)
 		{
 			throw new NotImplementedException();
@@ -16,7 +23,7 @@ namespace Samples.Business
 
 		public IList<ICustomer> GetCustomers()
 		{
-			throw new NotImplementedException();
+			return this.repository.Read();
 		}
 
 		public ICustomer CreateCustomer(string firstName, string lastName, DateTime dob)

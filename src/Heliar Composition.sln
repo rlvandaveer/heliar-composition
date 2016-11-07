@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.ConsoleApp", "Sampl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Common", "Samples.Common\Samples.Common.csproj", "{591CA3AC-0457-40D8-B956-D3CEEECF83F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.MvcApp", "Samples.MvcApp\Samples.MvcApp.csproj", "{2AABD63E-6947-42FF-A014-5762C354965D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{591CA3AC-0457-40D8-B956-D3CEEECF83F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{591CA3AC-0457-40D8-B956-D3CEEECF83F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{591CA3AC-0457-40D8-B956-D3CEEECF83F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AABD63E-6947-42FF-A014-5762C354965D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AABD63E-6947-42FF-A014-5762C354965D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AABD63E-6947-42FF-A014-5762C354965D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AABD63E-6947-42FF-A014-5762C354965D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,5 +85,14 @@ Global
 		{62AF801B-EE99-4127-B080-7C91DC81D9B2} = {473E8874-A3DF-4FFD-9A62-F06E4268AFF5}
 		{1B3BF2E1-DA19-4B43-B79A-AA0FE17A7805} = {473E8874-A3DF-4FFD-9A62-F06E4268AFF5}
 		{591CA3AC-0457-40D8-B956-D3CEEECF83F3} = {473E8874-A3DF-4FFD-9A62-F06E4268AFF5}
+		{2AABD63E-6947-42FF-A014-5762C354965D} = {473E8874-A3DF-4FFD-9A62-F06E4268AFF5}
+	EndGlobalSection
+	GlobalSection(AutomaticVersions) = postSolution
+		UpdateAssemblyVersion.Release|Any CPU = True
+		UpdateAssemblyFileVersion.Release|Any CPU = True
+		UpdateAssemblyInfoVersion.Release|Any CPU = True
+		AssemblyVersionSettings.Release|Any CPU = None.IncrementOnDemandWithReset.DateStamp.TimeStamp
+		AssemblyFileVersionSettings.Release|Any CPU = None.IncrementOnDemandWithReset.DateStamp.TimeStamp
+		AssemblyInfoVersionSettings.Release|Any CPU = None.IncrementOnDemandWithReset.DateStamp.None
 	EndGlobalSection
 EndGlobal

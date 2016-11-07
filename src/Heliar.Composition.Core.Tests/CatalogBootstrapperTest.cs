@@ -203,6 +203,8 @@ namespace Heliar.Composition.Core.Tests
 			result.Catalogs.SelectMany(c => c.Parts).Should().Contain(p => (p as System.ComponentModel.Composition.Primitives.ICompositionElement).DisplayName == "Samples.Data.CustomerRepository");
 		}
 
+		//TODO: RLV - Write registrar finisher test(s)
+
 		#endregion
 	}
 }
