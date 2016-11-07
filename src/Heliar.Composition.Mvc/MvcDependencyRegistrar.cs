@@ -27,6 +27,7 @@
 // <summary></summary>
 // ***********************************************************************
 using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Registration;
 using System.Web.Mvc;
 
@@ -43,13 +44,12 @@ namespace Heliar.Composition.Mvc
 		/// <summary>
 		/// Adds the necessary registrations to perform composition for MVC.
 		/// </summary>
-		/// <remarks>
-		/// Note that many MVC types like filters are composed by
+		/// <param name="registrations">The dependency registrations/conventions to wire up.</param>
+		/// <param name="catalog">An AggregateCatalog that can be added to if dependencies reside in an external assembly, i.e. BCL.</param>
+		/// <remarks>Note that many MVC types like filters are composed by
 		/// custom providers and not the stock resolver and therefore aren't
-		/// configured here.
-		/// </remarks>
-		/// <param name="registrations">The registrations.</param>
-		public void Register(RegistrationBuilder registrations)
+		/// configured here.</remarks>
+		public void Register(RegistrationBuilder registrations, AggregateCatalog catalog)
 		{
 			registrations.ForTypesDerivedFrom<IController>()
 				.SetCreationPolicy(CreationPolicy.NonShared)

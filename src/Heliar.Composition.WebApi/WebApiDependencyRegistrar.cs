@@ -49,8 +49,9 @@ namespace Heliar.Composition.WebApi
 		/// <summary>
 		/// Adds necessary composition registrations to perform composition for WebAPI.
 		/// </summary>
-		/// <param name="registrations">The registrations.</param>
-		public void Register(RegistrationBuilder registrations)
+		/// <param name="registrations">The dependency registrations/conventions to wire up.</param>
+		/// <param name="catalog">An AggregateCatalog that can be added to if dependencies reside in an external assembly, i.e. BCL.</param>
+		public void Register(RegistrationBuilder registrations, AggregateCatalog catalog)
 		{
 			registrations.ForTypesDerivedFrom<IHttpController>()
 				.SetCreationPolicy(CreationPolicy.NonShared)

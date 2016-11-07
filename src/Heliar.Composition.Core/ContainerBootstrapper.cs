@@ -74,7 +74,7 @@ namespace Heliar.Composition.Core
 
 				foreach (var bootstrapExport in bootstrapExports)
 				{
-					bootstrapExport.Value.Register(registrations);
+					bootstrapExport.Value.Register(registrations, this.Catalog);
 				}
 
 				//TODO: RLV - Reconsider whether requiring application registrar is best approach
@@ -83,7 +83,7 @@ namespace Heliar.Composition.Core
 				if (count == 1)
 				{
 					var appBootstrapper = appBootstrapperExports.Single().Value;
-					appBootstrapper.Register(registrations);
+					appBootstrapper.Register(registrations, this.Catalog);
 				}
 				else
 				{

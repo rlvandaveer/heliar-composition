@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Registration;
 using System.Diagnostics.CodeAnalysis;
 
@@ -18,7 +19,7 @@ namespace Samples.ConsoleApp
 		/// Registers the dependencies within this application.
 		/// </summary>
 		/// <param name="registrations">The registrations.</param>
-		public void Register(RegistrationBuilder registrations)
+		public void Register(RegistrationBuilder registrations, AggregateCatalog catalog)
 		{
 			registrations.ForTypesDerivedFrom<ILogger>()
 				.SetCreationPolicy(CreationPolicy.Shared)
