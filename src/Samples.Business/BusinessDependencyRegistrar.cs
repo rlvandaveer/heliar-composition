@@ -15,7 +15,7 @@ namespace Samples.Business
 	[ExcludeFromCodeCoverage]
 	public class BusinessDependencyRegistrar : ILibraryDependencyRegistrar
 	{
-		public void Register(RegistrationBuilder registrations)
+		public void Register(RegistrationBuilder registrations, AggregateCatalog catalog)
 		{
 			registrations.ForTypesMatching(t => t.Name.EndsWith("Service"))
 				.SetCreationPolicy(CreationPolicy.Shared)

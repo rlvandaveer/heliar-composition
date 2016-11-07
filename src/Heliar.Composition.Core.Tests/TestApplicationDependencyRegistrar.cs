@@ -12,6 +12,7 @@
 // <summary>Dependency mocks for testing</summary>
 // ***********************************************************************
 using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Registration;
 using System.Diagnostics.CodeAnalysis;
 
@@ -27,8 +28,9 @@ namespace Heliar.Composition.Core.Tests
 		/// <summary>
 		/// Registers the dependencies within this application.
 		/// </summary>
-		/// <param name="registrations">The registrations.</param>
-		public void Register(RegistrationBuilder registrations)
+		/// <param name="registrations">The dependency registrations/conventions to wire up.</param>
+		/// <param name="catalog">An AggregateCatalog that can be added to if dependencies reside in an external assembly, i.e. BCL.</param>
+		public void Register(RegistrationBuilder registrations, AggregateCatalog catalog)
 		{
 			registrations.ForType<Foo>()
 				.SetCreationPolicy(CreationPolicy.NonShared)
