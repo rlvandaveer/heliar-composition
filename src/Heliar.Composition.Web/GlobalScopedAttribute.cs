@@ -1,12 +1,12 @@
 ﻿// ***********************************************************************
 // Assembly         : Heliar.Composition.Web
 // Author           : R. L. Vandaveer
-// Created          : 10-15-2015
+// Created          : 12-14-2016
 //
 // Last Modified By : R. L. Vandaveer
 // Last Modified On : 12-14-2016
 // ***********************************************************************
-// <copyright file="Constants.cs" company="">
+// <copyright file="ApplicationScopedAttribute.cs" company="">
 //	Copyright ©2015 - 2016 R. L. Vandaveer. Permission is hereby granted,
 //	free of charge, to any person obtaining a copy of this software and
 //	associated documentation files (the "Software"), to deal in the Software
@@ -26,21 +26,20 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using System;
+
 namespace Heliar.Composition.Web
 {
 	/// <summary>
-	/// Class that provides constant values.
+	/// This attribute designates that a part's lifetime can be scoped both to the application and per request.
 	/// </summary>
-	public static class Constants
+	/// <seealso cref="System.Attribute" />
+	[AttributeUsage(AttributeTargets.Class)]
+	public class GlobalScopedAttribute : Attribute
 	{
 		/// <summary>
-		/// A constant value that is used to specify that a type should be scoped per the application, not per web request
+		/// The MEF metadata value
 		/// </summary>
-		public const string ApplicationScoped = "ApplicationScoped";
-
-		/// <summary>
-		/// The global scoped
-		/// </summary>
-		public const string GlobalScoped = "GlobalScoped";
+		public const string MetadataValue = Constants.GlobalScoped;
 	}
 }
