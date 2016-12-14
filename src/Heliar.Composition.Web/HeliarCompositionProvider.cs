@@ -118,7 +118,7 @@ namespace Heliar.Composition.Web
 				rb.ForTypesMatching(t => t.GetCustomAttributes(typeof(GlobalScopedAttribute), true).Any()).AddMetadata(Constants.GlobalScoped, true);
 			});
 
-			var requestCatalog = catalog.Filter(cpd => cpd.ContainsPartMetadata(Constants.ApplicationScoped, false)).IncludeDependencies();
+			var requestCatalog = catalog.Filter(cpd => !cpd.ContainsPartMetadata(Constants.ApplicationScoped, true)).IncludeDependencies();
 			var globalCatalog = catalog.Filter(cpd => cpd.ContainsPartMetadata(Constants.GlobalScoped, true) || cpd.ContainsPartMetadata(Constants.ApplicationScoped, true)).IncludeDependencies();
 			ApplicationScopedContainer = new CompositionContainer(globalCatalog, CompositionOptions.DisableSilentRejection | CompositionOptions.IsThreadSafe);
 			RequestScopedCatalog = requestCatalog;
