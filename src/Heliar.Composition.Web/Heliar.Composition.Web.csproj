@@ -47,6 +47,7 @@
     <Compile Include="DependencyResolutionBootstrapper.cs" />
     <Compile Include="Extensions\HttpContext.cs" />
     <Compile Include="Extensions\RegistrationBuilder.cs" />
+    <Compile Include="GlobalScopedAttribute.cs" />
     <Compile Include="HeliarCompositionProvider.cs" />
     <Compile Include="IDependencyResolutionBootstrapper.cs" />
     <Compile Include="IDependencyResolutionConfigurator.cs" />
