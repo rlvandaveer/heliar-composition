@@ -1,0 +1,1 @@
+﻿nuget pack Heliar.Composition.WebApi.csproj -IncludeReferencedProjects -properties Configuration=Release -symbols

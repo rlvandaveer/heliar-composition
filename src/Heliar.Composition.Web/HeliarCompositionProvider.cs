@@ -4,7 +4,7 @@
 // Created          : 10-15-2015
 //
 // Last Modified By : Robb
-// Last Modified On : 08-29-2016
+// Last Modified On : 12-14-2016
 // ***********************************************************************
 // <copyright file="HeliarCompositionProvider.cs" company="">
 //	Copyright ©2015 - 2016 R. L. Vandaveer. Permission is hereby granted,
@@ -112,10 +112,16 @@ namespace Heliar.Composition.Web
 			if (catalogBootstrapper == null) throw new ArgumentNullException(nameof(catalogBootstrapper));
 			if (resolutionBootstrapper == null) throw new ArgumentNullException(nameof(resolutionBootstrapper));
 
-			var catalog = catalogBootstrapper.Bootstrap(rb => rb.ForTypesMatching(t => t.GetCustomAttributes(typeof(ApplicationScopedAttribute), true).Any()).AddMetadata(Constants.ApplicationScoped, true));
-			var globals = catalog.Filter(cpd => cpd.ContainsPartMetadata(Constants.ApplicationScoped, true)).IncludeDependencies();
-			ApplicationScopedContainer = new CompositionContainer(globals, CompositionOptions.DisableSilentRejection | CompositionOptions.IsThreadSafe);
-			RequestScopedCatalog = globals.Complement;
+			var catalog = catalogBootstrapper.Bootstrap(rb =>
+			{
+				rb.ForTypesMatching(t => t.GetCustomAttributes(typeof(ApplicationScopedAttribute), true).Any()).AddMetadata(Constants.ApplicationScoped, true);
+				rb.ForTypesMatching(t => t.GetCustomAttributes(typeof(GlobalScopedAttribute), true).Any()).AddMetadata(Constants.GlobalScoped, true);
+			});
+
+			var requestCatalog = catalog.Filter(cpd => cpd.ContainsPartMetadata(Constants.ApplicationScoped, false)).IncludeDependencies();
+			var globalCatalog = catalog.Filter(cpd => cpd.ContainsPartMetadata(Constants.GlobalScoped, true) || cpd.ContainsPartMetadata(Constants.ApplicationScoped, true)).IncludeDependencies();
+			ApplicationScopedContainer = new CompositionContainer(globalCatalog, CompositionOptions.DisableSilentRejection | CompositionOptions.IsThreadSafe);
+			RequestScopedCatalog = requestCatalog;
 			resolutionBootstrapper.Bootstrap();
 		}
 
