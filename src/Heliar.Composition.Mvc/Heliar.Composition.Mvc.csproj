@@ -32,7 +32,7 @@
     <PrimaryVersionType>AssemblyInfoVersionAttribute</PrimaryVersionType>
     <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
     <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyInfoVersionSettings>None.IncrementOnDemandWithReset.None.None</AssemblyInfoVersionSettings>
   </PropertyGroup>
   <ItemGroup>

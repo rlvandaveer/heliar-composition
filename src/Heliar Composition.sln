@@ -90,8 +90,9 @@ Global
 	GlobalSection(AutomaticVersions) = postSolution
 		UpdateAssemblyVersion.Release|Any CPU = True
 		UpdateAssemblyFileVersion.Release|Any CPU = True
-		UpdateAssemblyInfoVersion.Release|Any CPU = False
+		UpdateAssemblyInfoVersion.Release|Any CPU = True
 		AssemblyVersionSettings.Release|Any CPU = None.IncrementOnDemandWithReset.DateStamp.TimeStamp
 		AssemblyFileVersionSettings.Release|Any CPU = None.IncrementOnDemandWithReset.DateStamp.TimeStamp
+		AssemblyInfoVersionSettings.Release|Any CPU = None.IncrementOnDemand.DateStamp.None
 	EndGlobalSection
 EndGlobal
